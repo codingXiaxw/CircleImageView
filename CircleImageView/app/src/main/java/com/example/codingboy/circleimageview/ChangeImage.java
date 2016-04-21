@@ -75,13 +75,19 @@ public class ChangeImage extends Activity implements View.OnClickListener
                             } else {
                                 if (currentDistance - lastDistance > 5)    //放大图片操作
                                 {
-                                    //待更新
+                                    FrameLayout.LayoutParams lp= (FrameLayout.LayoutParams) backgroundImage.getLayoutParams();
+                                    lp.width= (int) (backgroundImage.getWidth()*1.1);
+                                    lp.height= (int) (backgroundImage.getHeight()*1.1);
+                                    backgroundImage.setLayoutParams(lp);
 
                                     lastDistance = currentDistance;
                                 } else if (lastDistance - currentDistance > 5) //缩小图片操作
                                 {
+                                    FrameLayout.LayoutParams lp= (FrameLayout.LayoutParams) backgroundImage.getLayoutParams();
+                                    lp.width= (int) (backgroundImage.getWidth()*0.9);
+                                    lp.height= (int) (backgroundImage.getHeight()*0.9);
+                                    backgroundImage.setLayoutParams(lp);
 
-                                    //待更新
 
                                     lastDistance = currentDistance;
                                 }
