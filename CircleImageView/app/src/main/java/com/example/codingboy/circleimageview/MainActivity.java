@@ -1,6 +1,7 @@
 package com.example.codingboy.circleimageview;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -34,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 //    将image转化成圆形头像
+    public void toRoundBitmap(Bitmap bitmap)
+    {
+
+    }
 
 
 }

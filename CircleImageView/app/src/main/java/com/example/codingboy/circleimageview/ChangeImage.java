@@ -105,6 +105,24 @@ public class ChangeImage extends Activity implements View.OnClickListener
     @Override
     public void onClick(View v)
     {
+        switch (v.getId())
+        {
+            case R.id.back:
+                finish();
+                break;
+            case R.id.change:
+                  i++;
+                if(i>=0&&i<3) {
 
+                    backgroundImage.setImageResource(imageId[i]);
+                }else if (i==3)
+                {
+                    i-=3;
+                    backgroundImage.setImageResource(imageId[i]);
+                }
+                break;
+            case R.id.save:
+                break;
+        }
     }
 }
