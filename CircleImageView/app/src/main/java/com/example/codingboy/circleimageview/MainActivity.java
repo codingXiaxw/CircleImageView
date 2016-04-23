@@ -2,6 +2,12 @@ package com.example.codingboy.circleimageview;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -34,10 +40,36 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent data)
+    {
+        switch (requestCode)
+        {
+            case 1:
+                if(resultCode==RESULT_OK)
+                {
+                    byte[] bytes = data.getByteArrayExtra("bitmap");
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    circleImage.setImageBitmap(toRoundBitmap(bitmap));
+                }
+        }
+    }
 //    将image转化成圆形头像
-    public void toRoundBitmap(Bitmap bitmap)
+    public Bitmap toRoundBitmap(Bitmap bitmap)
     {
 
+        int r=bitmap.getWidth();
+        Bitmap bgBitmap=Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas=new Canvas(bgBitmap);
+        Paint paint=new Paint();
+        paint.setAntiAlias(true);
+        RectF rectF = new RectF(0, 0, r, r);
+        canvas.drawRoundRect(rectF, r/2, r/2, paint);
+        canvas.drawCircle(500, 500, 100, paint);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        canvas.drawBitmap(bitmap,100,100,paint);
+        return bgBitmap;
     }
 
 

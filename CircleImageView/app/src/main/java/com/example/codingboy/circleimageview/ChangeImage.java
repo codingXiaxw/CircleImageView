@@ -1,6 +1,17 @@
 package com.example.codingboy.circleimageview;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -8,6 +19,8 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+
+import java.io.ByteArrayOutputStream;
 
 /**
  * Created by codingBoy on 16/4/20.
@@ -20,6 +33,7 @@ public class ChangeImage extends Activity implements View.OnClickListener
     private FrameLayout frameLayout;
     int [] imageId=new int[]{R.drawable.b,R.drawable.c,R.drawable.d};
     int i=0;
+    Bitmap bitmap;
 
 
     @Override
@@ -102,6 +116,7 @@ public class ChangeImage extends Activity implements View.OnClickListener
 
 
 
+
     @Override
     public void onClick(View v)
     {
@@ -122,6 +137,14 @@ public class ChangeImage extends Activity implements View.OnClickListener
                 }
                 break;
             case R.id.save:
+                Intent intent=new Intent();
+                bitmap.createBitmap(((BitmapDrawable)backgroundImage.getDrawable()).getBitmap(),100,100,100,100);
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] bytes = stream.toByteArray();
+                intent.putExtra("bitmap", bytes);
+                setResult(RESULT_OK, intent);
+                finish();
                 break;
         }
     }
