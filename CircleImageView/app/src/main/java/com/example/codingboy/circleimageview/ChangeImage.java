@@ -55,6 +55,8 @@ public class ChangeImage extends Activity implements View.OnClickListener
 
         backgroundImage.setImageResource(imageId[i]);
 
+        setRoundCircle();
+
         frameLayout.setOnTouchListener(new View.OnTouchListener() {
             float currentDistance;
             float lastDistance = -1;
@@ -114,7 +116,11 @@ public class ChangeImage extends Activity implements View.OnClickListener
         });
     }
 
-
+    private void setRoundCircle() {
+        Paint paint=new Paint();
+        Rect rect=new Rect()
+        Canvas canvas=new Canvas()
+    }
 
 
     @Override
