@@ -34,6 +34,7 @@ public class ChangeImage extends Activity implements View.OnClickListener
     int [] imageId=new int[]{R.drawable.b,R.drawable.c,R.drawable.d};
     int i=0;
     Bitmap bitmap;
+    CircleImageview circleImageview;
 
 
     @Override
@@ -48,6 +49,8 @@ public class ChangeImage extends Activity implements View.OnClickListener
         changebtn= (Button) findViewById(R.id.change);
         backbtn= (Button) findViewById(R.id.back);
         frameLayout= (FrameLayout) findViewById(R.id.frameLayout);
+        circleImageview=new CircleImageview(this);
+
 
         savebtn.setOnClickListener(this);
         backbtn.setOnClickListener(this);
@@ -55,7 +58,8 @@ public class ChangeImage extends Activity implements View.OnClickListener
 
         backgroundImage.setImageResource(imageId[i]);
 
-        setRoundCircle();
+        frameLayout.addView(circleImageview);
+
 
         frameLayout.setOnTouchListener(new View.OnTouchListener() {
             float currentDistance;
@@ -72,9 +76,9 @@ public class ChangeImage extends Activity implements View.OnClickListener
 
                         //当触摸手指数等于1个时，代表对图片做出移动操作。
                         if (event.getPointerCount() == 1) {
-                            FrameLayout.LayoutParams lp= (FrameLayout.LayoutParams) backgroundImage.getLayoutParams();
+                            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) backgroundImage.getLayoutParams();
                             lp.leftMargin = (int) event.getX();
-                            lp.bottomMargin= (int) event.getY();
+                            lp.bottomMargin = (int) event.getY();
                             backgroundImage.setLayoutParams(lp);
 
                         }
@@ -91,17 +95,17 @@ public class ChangeImage extends Activity implements View.OnClickListener
                             } else {
                                 if (currentDistance - lastDistance > 5)    //放大图片操作
                                 {
-                                    FrameLayout.LayoutParams lp= (FrameLayout.LayoutParams) backgroundImage.getLayoutParams();
-                                    lp.width= (int) (backgroundImage.getWidth()*1.1);
-                                    lp.height= (int) (backgroundImage.getHeight()*1.1);
+                                    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) backgroundImage.getLayoutParams();
+                                    lp.width = (int) (backgroundImage.getWidth() * 1.1);
+                                    lp.height = (int) (backgroundImage.getHeight() * 1.1);
                                     backgroundImage.setLayoutParams(lp);
 
                                     lastDistance = currentDistance;
                                 } else if (lastDistance - currentDistance > 5) //缩小图片操作
                                 {
-                                    FrameLayout.LayoutParams lp= (FrameLayout.LayoutParams) backgroundImage.getLayoutParams();
-                                    lp.width= (int) (backgroundImage.getWidth()*0.9);
-                                    lp.height= (int) (backgroundImage.getHeight()*0.9);
+                                    FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) backgroundImage.getLayoutParams();
+                                    lp.width = (int) (backgroundImage.getWidth() * 0.9);
+                                    lp.height = (int) (backgroundImage.getHeight() * 0.9);
                                     backgroundImage.setLayoutParams(lp);
 
 
@@ -116,11 +120,6 @@ public class ChangeImage extends Activity implements View.OnClickListener
         });
     }
 
-    private void setRoundCircle() {
-        Paint paint=new Paint();
-        Rect rect=new Rect()
-        Canvas canvas=new Canvas()
-    }
 
 
     @Override
@@ -144,7 +143,6 @@ public class ChangeImage extends Activity implements View.OnClickListener
                 break;
             case R.id.save:
                 Intent intent=new Intent();
-                bitmap.createBitmap(((BitmapDrawable)backgroundImage.getDrawable()).getBitmap(),100,100,100,100);
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
                 byte[] bytes = stream.toByteArray();
